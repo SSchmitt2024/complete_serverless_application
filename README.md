@@ -49,45 +49,6 @@ Deployed via three CloudFormation stacks using `deploy/deploy.sh`:
 
 ---
 
-## Setup & Deployment
-
-### Prerequisites
-- AWS CLI configured with valid credentials
-- Google Cloud project with OAuth 2.0 Client ID created
-- Python 3.x and pip available
-
-### 1. Google OAuth
-- Create a project at [Google Cloud Console](https://console.cloud.google.com)
-- Create OAuth 2.0 credentials (Web application type)
-- Note your client ID — you'll need it in step 3
-
-### 2. Clone the repo
-```bash
-git clone https://github.com/SSchmitt2024/pub_It718.git
-cd pub_It718
-```
-
-### 3. Insert your Google client ID
-```bash
-sed -i 's/YOUR_CLIENT_ID/your-client-id.apps.googleusercontent.com/' deploy/lambda/verifyToken.py
-sed -i 's/YOUR_CLIENT_ID/your-client-id.apps.googleusercontent.com/' website/login.html
-```
-
-### 4. Deploy
-```bash
-cd deploy
-bash deploy.sh your-unique-prefix
-```
-
-The script will output your CloudFront URL when complete.
-
-### 5. Update Google OAuth
-Add the CloudFront URL to your OAuth credentials:
-- **Authorized JavaScript origins:** `https://your-cloudfront-url.cloudfront.net`
-- **Authorized redirect URIs:** `https://your-cloudfront-url.cloudfront.net/v1/verifyToken`
-
----
-
 ## Security Notes
 
 - JWT verification is handled server-side in Lambda using `google.auth` — tokens are never trusted without verification
